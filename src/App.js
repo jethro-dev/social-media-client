@@ -1,24 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { Home, Profile, Login, Register, Edit } from "./pages";
+import { Container, Content } from "./App.styled";
+import { Topbar, Sidebar, Feed, Rightbar } from "./components";
+import {} from "./";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
+import ScrollToTop from "./scrollToTop";
+import { useSelector } from "react-redux";
+
+const AppLayout = () => {
+  return (
+    <>
+      <Topbar />
+      <Container>
+        <Sidebar />
+        <Content>
+          <Outlet />
+        </Content>
+      </Container>
+    </>
+  );
+};
+
+const LoginLayout = () => {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+};
 
 function App() {
+  const user = useSelector((state) => state.user.currentUser);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <AppLayout /> : <Navigate to="/login" />}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route index element={<Home />} />
+          <Route path="profile/:userId" element={<Profile />} />
+          <Route path="edit/:userId" element={<Edit />} />
+        </Route>
+        <Route path="/" element={<LoginLayout />}>
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
