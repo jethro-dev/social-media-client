@@ -45,14 +45,14 @@ const Rightbar = ({ currentProfileUser }) => {
       <Container>
         <Wrapper>
           <BirthdayContainer>
-            <BirthdayImage src={PF + `gift.png`} alt="" />
+            <BirthdayImage src="/assets/gift.png" alt="gift" />
             <BirthdayText>
               <b>Peter Parker</b> and <b>3 other friends</b> have a birthday
               today
             </BirthdayText>
           </BirthdayContainer>
           <AdvertisementTitle>Advertisement:</AdvertisementTitle>
-          <Advertisement src={PF + `ad.jpg`} alt="" />
+          <Advertisement src="/assets/ad.jpg" alt="ad" />
           <FriendListTitle>Followings</FriendListTitle>
           <FriendList>
             {followingsList.map((user) => {
