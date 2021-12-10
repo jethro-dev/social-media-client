@@ -63,7 +63,7 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Logo>SocialMedia</Logo>
+          <Logo>weConnect</Logo>
           <Desc>Connect with friends and the world around you.</Desc>
         </Left>
         <Right>
