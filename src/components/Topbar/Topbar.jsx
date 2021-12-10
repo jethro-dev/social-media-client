@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   Container,
   Wrapper,
@@ -11,6 +12,9 @@ import {
   IconContainer,
   StyledLink,
   NavLink,
+  Dropdown,
+  DropdownList,
+  DropdownItem,
 } from "./Topbar.styled";
 import {
   Person,
@@ -22,15 +26,48 @@ import {
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Avatar } from "..";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const user = useSelector((state) => state.user.currentUser);
+  const avatarEl = useRef();
+  const dropdownEl = useRef();
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
   };
+
+  const handleAvatarMouseOver = () => {
+    dropdownEl.current.style.opacity = "1";
+    dropdownEl.current.style.transform = "translateY(10px)";
+    dropdownEl.current.style.pointerEvents = "auto";
+  };
+  const handleDropdownMouseleave = () => {
+    console.log("mouseleave");
+    dropdownEl.current.style.opacity = "0";
+    dropdownEl.current.style.transform = "translateY(-10px)";
+    dropdownEl.current.style.pointerEvents = "none";
+  };
+
+  useEffect(() => {
+    dropdownEl.current.addEventListener("mouseleave", handleDropdownMouseleave);
+    return () => {
+      dropdownEl.current.removeEventListener(
+        "mouseleave",
+        handleDropdownMouseleave
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    avatarEl.current.addEventListener("mouseover", handleAvatarMouseOver);
+
+    return () => {
+      avatarEl.current.removeEventListener("mouseover", handleAvatarMouseOver);
+    };
+  }, []);
 
   return (
     <Container>
@@ -40,7 +77,7 @@ const Topbar = () => {
             to="/"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <Logo>SocialMedia</Logo>
+            <Logo>weConnect</Logo>
           </StyledLink>
         </Left>
         <Center>
@@ -50,20 +87,6 @@ const Topbar = () => {
           </SearchBar>
         </Center>
         <Right>
-          <LinkContainer>
-            <StyledLink
-              to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <NavLink>Home</NavLink>
-            </StyledLink>
-            <StyledLink
-              to={`/profile/${user?._id}`}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <NavLink>Profile</NavLink>
-            </StyledLink>
-          </LinkContainer>
           <IconContainer>
             <Badge
               badgeContent={4}
@@ -92,11 +115,28 @@ const Topbar = () => {
           </IconContainer>
           <StyledLink
             to={`/profile/${user?._id}`}
+            ref={avatarEl}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <Avatar src={user?.profilePicture} />
           </StyledLink>
-          <Logout sx={{ cursor: "pointer" }} onClick={handleLogout} />
+          <Dropdown ref={dropdownEl}>
+            <DropdownList>
+              <StyledLink color="red" to="/">
+                <DropdownItem>Home</DropdownItem>
+              </StyledLink>
+              <StyledLink color="blue" to={`/profile/${user._id}`}>
+                <DropdownItem>Profile</DropdownItem>
+              </StyledLink>
+              <DropdownItem onClick={handleLogout}>
+                Logout
+                <Logout
+                  sx={{ cursor: "pointer", margin: "0 10px", fontSize: "15px" }}
+                  onClick={handleLogout}
+                />
+              </DropdownItem>
+            </DropdownList>
+          </Dropdown>
         </Right>
       </Wrapper>
     </Container>

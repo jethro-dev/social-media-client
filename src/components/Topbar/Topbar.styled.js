@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  color: white;
 `;
 
 export const Container = styled.div`
@@ -13,8 +12,7 @@ export const Container = styled.div`
   position: sticky;
   top: 0;
   z-index: 999;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const Wrapper = styled.div`
@@ -36,14 +34,18 @@ export const Right = styled.div`
   flex: 4;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   color: white;
 `;
 export const Logo = styled.span`
   color: white;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
+  transition: all ease-in-out 200ms;
+  &:hover {
+    color: #e0e0e0;
+  }
 `;
 
 export const SearchBar = styled.div`
@@ -75,4 +77,42 @@ export const NavLink = styled.span`
 export const IconContainer = styled.div`
   display: flex;
   align-items: center;
+
+  & > * {
+    transition: all ease-in-out 200ms;
+    &:hover {
+      color: #e0e0e0;
+    }
+  }
+`;
+
+export const Dropdown = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: absolute;
+  top: 60px;
+  opacity: 0;
+  transition: 200ms all ease-in-out;
+  transform: translateY(-10px);
+  padding: 10px;
+  pointer-events: none;
+`;
+export const DropdownList = styled.ul`
+  list-style: none;
+  width: 200px;
+`;
+export const DropdownItem = styled.li`
+  padding: 10px;
+  margin: 5px 0;
+  color: #2a2a2a;
+  border-radius: 5px;
+  transition: 200ms all ease-in-out;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: #e6e6e6;
+  }
 `;

@@ -16,7 +16,7 @@ import {
   FollowButton,
   FollowText,
 } from "./Profile.styled";
-import axios from "axios";
+import axios from "../../axios";
 import { useParams } from "react-router";
 import { Settings, Add, Done } from "@mui/icons-material";
 import { useSelector } from "react-redux";

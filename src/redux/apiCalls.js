@@ -6,7 +6,7 @@ import {
   followStart,
   followSuccess,
 } from "./userSlice";
-import axios from "axios";
+import axios from "../axios";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());

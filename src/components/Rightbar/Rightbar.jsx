@@ -58,10 +58,11 @@ const Rightbar = ({ currentProfileUser }) => {
             {followingsList.map((user) => {
               return (
                 <Link
+                  key={user._id}
                   to={`/profile/${user._id}`}
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  <OnlineFriendListItem key={user.id} {...user} />
+                  <OnlineFriendListItem {...user} />
                 </Link>
               );
             })}
@@ -72,7 +73,6 @@ const Rightbar = ({ currentProfileUser }) => {
   };
 
   const ProfileRightbar = () => {
-    console.log(followingsList);
     return (
       <ContainerNoFixed>
         <Wrapper>

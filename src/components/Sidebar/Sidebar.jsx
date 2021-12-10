@@ -81,6 +81,7 @@ const Sidebar = () => {
           {followingsList.map((user) => {
             return (
               <Link
+                key={user._id}
                 to={`/profile/${user._id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
